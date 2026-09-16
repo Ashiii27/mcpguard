@@ -8,31 +8,31 @@ import time
 PAYLOAD_DIR = os.path.join(os.path.dirname(__file__), "payloads")
 MAIN = os.path.join(os.path.dirname(__file__), "..", "main.py")
 
-ECHO_SERVER = (
-    "python3 -c \""
-    "import sys, json\n"
-    "for line in sys.stdin:\n"
-    "    msg = json.loads(line)\n"
-    "    resp = {'jsonrpc':'2.0','id':msg.get('id'),'result':{'ok':True}}\n"
-    "    sys.stdout.write(json.dumps(resp)+'\\n')\n"
-    "    sys.stdout.flush()\n"
-    "\""
-)
+ECHO_SERVER = f'"{sys.executable}" "{os.path.join(os.path.dirname(__file__), "echo_server.py")}"'
 
 
 def _send_payload(payload_file: str) -> dict:
     with open(os.path.join(PAYLOAD_DIR, payload_file)) as f:
-        payload = f.read().strip()
+        payload = json.dumps(json.load(f))
 
     proc = subprocess.Popen(
         [sys.executable, MAIN, "--server", ECHO_SERVER],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
-        stderr=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
     )
 
-    stdout, _ = proc.communicate(input=(payload + "\n").encode(), timeout=5)
-    return json.loads(stdout.decode().strip())
+    proc.stdin.write((payload + "\n").encode())
+    proc.stdin.flush()
+    proc.stdin.close()
+
+    raw_line = proc.stdout.readline()
+    proc.wait(timeout=5)
+    raw = raw_line.decode().strip()
+    if not raw:
+        stderr = proc.stderr.read().decode()
+        raise AssertionError(f"empty stdout from proxy. stderr: {stderr}")
+    return json.loads(raw)
 
 
 def test_secret_leak_blocked():
