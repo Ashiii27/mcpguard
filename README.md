@@ -1,4 +1,4 @@
-# MCPGuard 🛡️
+# MCPGuard 
 
 **Zero-dependency security proxy for the Model Context Protocol (MCP).**
 
@@ -59,11 +59,11 @@ MCPGuard provides an out-of-process, deterministic firewall layer that validates
 
 ## Key Features
 
-- ⚡ **Near-Zero Latency**: Sub-millisecond rule evaluation designed for high-throughput stdio streams.
-- 🛡️ **Multi-Threat Defense**: Intercepts credentials, prompt injections, and destructive file paths.
-- 🧪 **Dry-Run (Audit) Mode**: Log flagged threats without disrupting tool executions.
-- 📋 **Tool Allowlisting**: Exclude trusted tools from inspection when desired.
-- 🔒 **Privacy-Preserving Audit Logs**: Logs JSON security events with truncated argument hashes (`SHA-256`) rather than logging sensitive arguments in plaintext.
+-  **Near-Zero Latency**: Sub-millisecond rule evaluation designed for high-throughput stdio streams.
+-  **Multi-Threat Defense**: Intercepts credentials, prompt injections, and destructive file paths.
+-  **Dry-Run (Audit) Mode**: Log flagged threats without disrupting tool executions.
+-  **Tool Allowlisting**: Exclude trusted tools from inspection when desired.
+-  **Privacy-Preserving Audit Logs**: Logs JSON security events with truncated argument hashes (`SHA-256`) rather than logging sensitive arguments in plaintext.
 - 🔌 **Plug-and-Play**: Compatible with any stdio-based MCP server (Python, Node.js/npx, Go, Rust, binary executables).
 
 ---
