@@ -64,7 +64,7 @@ MCPGuard provides an out-of-process, deterministic firewall layer that validates
 -  **Dry-Run (Audit) Mode**: Log flagged threats without disrupting tool executions.
 -  **Tool Allowlisting**: Exclude trusted tools from inspection when desired.
 -  **Privacy-Preserving Audit Logs**: Logs JSON security events with truncated argument hashes (`SHA-256`) rather than logging sensitive arguments in plaintext.
-- 🔌 **Plug-and-Play**: Compatible with any stdio-based MCP server (Python, Node.js/npx, Go, Rust, binary executables).
+-  **Plug-and-Play**: Compatible with any stdio-based MCP server (Python, Node.js/npx, Go, Rust, binary executables).
 
 ---
 
